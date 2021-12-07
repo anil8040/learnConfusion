@@ -1,12 +1,8 @@
 import React, { Component } from "react";
-import {
-  Card,
-  CardImg,
-  CardImgOverlay,
-  CardBody,
-  CardTitle,
-  CardText,
-} from "reactstrap";
+
+import { Card, CardImg, CardImgOverlay, CardTitle } from "reactstrap";
+
+import DishDetail from "./DishDetailComponent";
 
 class Menu extends Component {
   constructor(props) {
@@ -19,19 +15,22 @@ class Menu extends Component {
   onDishSelect(dish) {
     this.setState({ selectedDish: dish });
   }
+
   renderDish(dish) {
     if (dish) {
       return (
-        <Card>
-          <CardImg width="100%" src={dish.image} alt={dish.name}></CardImg>
-          <CardBody>
-            <CardTitle>{dish.name}</CardTitle>
-            <CardText>{dish.description}</CardText>
-          </CardBody>
-        </Card>
+        <DishDetail selectedDish={dish} />
+
+        // <Card>
+        //   <CardImg width="100%" src={dish.image} alt={dish.name}></CardImg>
+        //   <CardBody>
+        //     <CardTitle>{dish.name}</CardTitle>
+        //     <CardText>{dish.description}</CardText>
+        //   </CardBody>
+        // </Card>
       );
     } else {
-      return <div>No Dish selected</div>;
+      return <div></div>;
     }
   }
 
@@ -40,21 +39,14 @@ class Menu extends Component {
       return (
         <div key={dish.id} className="col-12 col-md-5 m-1">
           <Card onClick={() => this.onDishSelect(dish)}>
-            <CardImg src={dish.image} alt={dish.name} />
+            <CardImg width="100%" src={dish.image} alt={dish.name} />
             <CardImgOverlay>
-              <CardTitle heading={dish.name}></CardTitle>
+              <CardTitle>
+                <b>{dish.name}</b>
+              </CardTitle>
             </CardImgOverlay>
           </Card>
         </div>
-        // <div key={dish.id} className="row mt-5">
-        //   <Media className="col-2">
-        //     <Media object src={dish.image} alt={dish.name} />
-        //   </Media>
-        //   <Media body className="col-9 ml-5">
-        //     <Media heading>{dish.name}</Media>
-        //     <p>{dish.description}</p>
-        //   </Media>
-        // </div>
       );
     });
     return (
